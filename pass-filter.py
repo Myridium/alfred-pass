@@ -1,12 +1,20 @@
 #!/usr/bin/env python3
 
-from dataclasses import dataclass
 from typing import *
 
 import fnmatch
 import os
 import sys
 import string
+
+# Resources:
+#
+# Icons can use uniform type identifiers (UTIs) present in Mac. E.g. 'public.folder'.
+# This will use system icons instead of having to package custom ones.
+# https://developer.apple.com/documentation/uniformtypeidentifiers
+#
+# XML options for Alfred:
+# https://developer.apple.com/documentation/uniformtypeidentifiers
 
 
 QUERY = sys.argv[1] if len(sys.argv) > 1 else None
@@ -118,7 +126,7 @@ class PassItem:
         title       =   self.psp_noext if not self.is_dir else self.psp + "/"
         subtitle    =   "Copy password: " + self.psp_noext if not self.is_dir else "Browse " + self.psp + "/"
         
-        icon_xml    = '<icon>icon.png</icon>' if not self.is_dir else '<icon type="filetype">public.folder</icon>'
+        icon_xml    = '<icon type="filetype">public.vCard</icon>' if not self.is_dir else '<icon type="filetype">public.folder</icon>'
         mod_xml     = "" if self.is_dir else f"""<mod key="option" subtitle="Autotype password: {self.psp_noext:s}" valid="yes" arg="autotype_firstline {arg:s}"/>
         <mod key="shift" subtitle="Browse fields: {self.psp_noext:s}" valid="yes" arg="browse_fields {arg:s}"/>""" 
 
@@ -144,7 +152,10 @@ class PassItem:
 
     @property
     def psp_noext(self):
-        return self.psp.rsplit(".", 2)[0]
+        if self.is_dir: return self.psp
+        if not self.is_dir: 
+            assert self.psp.endswith(".gpg"), f"self.psp does not end with '.gpg': '{self.psp:s}'."
+            return self.psp[:-4]
 
     @property
     def path(self):
