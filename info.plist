@@ -307,9 +307,7 @@
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>script</key>
-				<string>query="$1"
-
-pass "$query" | head -n 1</string>
+				<string>printf "$(pass "$1" | head -n 1)"</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -481,9 +479,7 @@ pass "$query" | head -n 1</string>
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>script</key>
-				<string>query="$1"
-
-pass "$query" | head -n 1</string>
+				<string>printf "$(pass "$1" | head -n 1)"</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -549,7 +545,7 @@ pass "$query" | head -n 1</string>
 				<string>psp="$2"
 linenum="$1"
 
-pass "$psp" | sed -n "${linenum}p" | sed -E 's/^ *([^:]+): +( ?[^ ]+) *$/\2/'</string>
+printf "$(pass "$psp" | sed -n "${linenum}p" | sed -E 's/^ *([^:]+): +( ?[^ ]+) *$/\2/')"</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -778,7 +774,7 @@ printf "$1"</string>
 				<string>psp="$2"
 linenum="$1"
 
-pass "$psp" | sed -n "${linenum}p" | sed -E 's/^ *([^:]+): +( ?[^ ]+) *$/\2/'</string>
+printf "$(pass "$psp" | sed -n "${linenum}p" | sed -E 's/^ *([^:]+): +( ?[^ ]+) *$/\2/')"</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>

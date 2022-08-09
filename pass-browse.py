@@ -36,11 +36,11 @@ if False:
     def password_xml() -> str:
         n,l,v = 0, "Password", 
         return f"""
-        <item arg="copy {n+1:d} {QUERY:s}" valid="YES" autocomplete="{QUERY:s}: {l:s}">
+        <item arg="autotype {n+1:d} {QUERY:s}" valid="YES" autocomplete="{QUERY:s}: {l:s}">
             <title>Secret (first line)</title>
-            <subtitle>Copy to clipboard. Hold ⌥ to reveal.</subtitle>
+            <subtitle>Copy &amp; autotype. Hold ⌥ to reveal. Hold ⌘ to copy.</subtitle>
             <mod key="option" subtitle="{v:s}"/>
-            <mod key="shift" subtitle="Copy &amp; autotype" valid="YES" arg="autotype {n+1:d} {QUERY:s}"/>
+            <mod key="command" subtitle="Copy to clipboard." valid="YES" arg="copy {n+1:d} {QUERY:s}"/>
         </item>"""
 
 # Escape XML strings. Taken from https://stackoverflow.com/a/65450788
@@ -97,12 +97,12 @@ def field_to_xml(field : Tuple[int,str,str]) -> str:
             #icon_xml = ''
 
     return f"""
-    <item arg="copy {n+1:d} {QUERY:s}" valid="YES" autocomplete="{QUERY:s}: {xmlesc(l):s}">
+    <item arg="autotype {n+1:d} {QUERY:s}" valid="YES" autocomplete="{QUERY:s}: {xmlesc(l):s}">
         <title>{l:s}</title>
         {icon_xml:s}
-        <subtitle>Copy to clipboard. Hold ⌥ to reveal.</subtitle>
+        <subtitle>Copy &amp; autotype. Hold ⌥ to reveal. Hold ⌘ to copy.</subtitle>
         <mod key="option" subtitle="{xmlesc(v):s}"/>
-        <mod key="shift" subtitle="Copy &amp; autotype" valid="YES" arg="autotype {n+1:d} {QUERY:s}"/>
+        <mod key="command" subtitle="Copy to clipboard." valid="YES" arg="copy {n+1:d} {QUERY:s}"/>
     </item>""" 
 
 # Debugging

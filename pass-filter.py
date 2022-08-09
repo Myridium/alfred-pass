@@ -124,14 +124,14 @@ class PassItem:
         valid       =   "NO" if self.is_dir else "YES"
 
         title       =   self.psp_noext if not self.is_dir else self.psp + "/"
-        subtitle    =   "Copy password: " + self.psp_noext if not self.is_dir else "Browse " + self.psp + "/"
+        subtitle    =   "Copy &amp; autotype password. Hold ⌘ to copy. Hold ⇧ to browse fields." if not self.is_dir else ""
         
         icon_xml    = '<icon type="filetype">public.vCard</icon>' if not self.is_dir else '<icon type="filetype">public.folder</icon>'
-        mod_xml     = "" if self.is_dir else f"""<mod key="option" subtitle="Autotype password: {self.psp_noext:s}" valid="yes" arg="autotype_firstline {arg:s}"/>
-        <mod key="shift" subtitle="Browse fields: {self.psp_noext:s}" valid="yes" arg="browse_fields {arg:s}"/>""" 
+        mod_xml     = "" if self.is_dir else f"""<mod key="command" subtitle="Copy password." valid="yes" arg="copy_firstline {arg:s}"/>
+        <mod key="shift" subtitle="Browse fields..." valid="yes" arg="browse_fields {arg:s}"/>"""
 
         return f"""
-    <item arg="copy_firstline {arg:s}" autocomplete="{autocomplete:s}" valid="{valid:s}">
+    <item arg="autotype_firstline {arg:s}" autocomplete="{autocomplete:s}" valid="{valid:s}">
         <title>{title:s}</title>
         <subtitle>{subtitle:s}</subtitle>
         {icon_xml:s}
