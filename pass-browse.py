@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 # First arg should be the name of the password-store entry.
+# Also need to pipe in the output of `pass show $1`
 # This script will return the Alfred 5 XML for an interactive 
 # list of fields to choose from, within the password.
 
@@ -18,13 +19,8 @@ HOME = os.environ['HOME']
 PASS_DIR = os.environ.get('PASSWORD_STORE_DIR', os.path.join(HOME, '.password-store/'))
 
 
-def get_pass_show(psp : str) -> str:
-    result = subprocess.run(['pass', 'show', psp], stdout=subprocess.PIPE)
-    output = result.stdout.decode('utf-8')
-    return output
-   
-def get_fields(psp : str) -> List[str]:
-    pass_show_output = get_pass_show(psp)
+def get_fields(pass_show_output : str) -> List[str]:
+    #pass_show_output = get_pass_show(psp)
     nums_labels_values : List[Tuple[int, str, str]] 
     nums_labels_values = [(0, "Password", pass_show_output.splitlines()[0])]
     nums_labels_values.extend([ 
@@ -114,14 +110,10 @@ debug = False
 if debug:
     print(items)
 
-print("""
-<?xml version="1.0"?>
-<items>""")
-#print(''.join([item.as_xml for item in items]))
-#print(get_fields(QUERY))
-#print(password_xml())
-print(''.join([field_to_xml(field) for field in get_fields(QUERY)]))
-print("""
-</items>""")
-
+print(
+    '<?xml version="1.0"?>'
+    + '\n' + "<items>" 
+    + '\n' + ''.join([field_to_xml(field) for field in get_fields(sys.stdin.read())])
+    + '\n' + '</items>'
+)
 

@@ -60,11 +60,24 @@
 				<false/>
 			</dict>
 		</array>
-		<key>6ED806A4-C175-4BA3-8BD2-C11F1B6D5D24</key>
+		<key>5A95F68C-46B4-4DB4-9552-2AE787837BC3</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
 				<string>AB5D2E0A-8659-4286-849B-1AD709783751</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>6ED806A4-C175-4BA3-8BD2-C11F1B6D5D24</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>5A95F68C-46B4-4DB4-9552-2AE787837BC3</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -182,7 +195,7 @@
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>6ED806A4-C175-4BA3-8BD2-C11F1B6D5D24</string>
+				<string>FBA6C6C7-BC8C-43A4-ADFF-E081D773F600</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -235,6 +248,19 @@
 			<dict>
 				<key>destinationuid</key>
 				<string>1471D761-CECE-4E00-8C13-65CAF2FCB73D</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>FBA6C6C7-BC8C-43A4-ADFF-E081D773F600</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>6ED806A4-C175-4BA3-8BD2-C11F1B6D5D24</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -541,6 +567,33 @@ pass "$psp" | sed -n "${linenum}p" | sed -E 's/^ *([^:]+): +( ?[^ ]+) *$/\2/'</s
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>script</key>
+				<string>TMPFILE="$(mktemp)"
+printf "$TMPFILE" &gt; "$_ALFRED_PASS_SHOW_OUTPUT_TMP_FILE_LOC"
+./pass-show.py "$1" &gt; "$TMPFILE"
+echo "Temporary file created at: '$TMPFILE'" &amp;&gt;2
+printf "$1"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>FBA6C6C7-BC8C-43A4-ADFF-E081D773F600</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>alfredfiltersresults</key>
 				<false/>
 				<key>alfredfiltersresultsmatchmode</key>
@@ -552,13 +605,11 @@ pass "$psp" | sed -n "${linenum}p" | sed -E 's/^ *([^:]+): +( ?[^ ]+) *$/\2/'</s
 				<key>argumenttype</key>
 				<integer>2</integer>
 				<key>escaping</key>
-				<integer>68</integer>
-				<key>keyword</key>
-				<string>passf</string>
+				<integer>0</integer>
 				<key>queuedelaycustom</key>
 				<integer>3</integer>
 				<key>queuedelayimmediatelyinitially</key>
-				<true/>
+				<false/>
 				<key>queuedelaymode</key>
 				<integer>0</integer>
 				<key>queuemode</key>
@@ -566,9 +617,10 @@ pass "$psp" | sed -n "${linenum}p" | sed -E 's/^ *([^:]+): +( ?[^ ]+) *$/\2/'</s
 				<key>runningsubtext</key>
 				<string></string>
 				<key>script</key>
-				<string>/usr/bin/python3 pass-browse.py "{query}"</string>
+				<string>TMPFILE="$(cat "$_ALFRED_PASS_SHOW_OUTPUT_TMP_FILE_LOC")"
+./pass-browse.py "$1" &lt; "$TMPFILE"</string>
 				<key>scriptargtype</key>
-				<integer>0</integer>
+				<integer>1</integer>
 				<key>scriptfile</key>
 				<string></string>
 				<key>subtext</key>
@@ -765,6 +817,31 @@ pass "$psp" | sed -n "${linenum}p" | sed -E 's/^ *([^:]+): +( ?[^ ]+) *$/\2/'</s
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>script</key>
+				<string>TMPFILE="$(cat "$_ALFRED_PASS_SHOW_OUTPUT_TMP_FILE_LOC")"
+rm "$TMPFILE"
+printf "$@"</string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>5A95F68C-46B4-4DB4-9552-2AE787837BC3</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>matchmode</key>
 				<integer>1</integer>
 				<key>matchstring</key>
@@ -809,34 +886,43 @@ pass "$psp" | sed -n "${linenum}p" | sed -E 's/^ *([^:]+): +( ?[^ ]+) *$/\2/'</s
 		<key>1471D761-CECE-4E00-8C13-65CAF2FCB73D</key>
 		<dict>
 			<key>xpos</key>
-			<real>705</real>
+			<real>915</real>
 			<key>ypos</key>
-			<real>340</real>
+			<real>335</real>
 		</dict>
 		<key>154D688E-143D-43CE-8BF1-76BC08F59F30</key>
 		<dict>
 			<key>note</key>
 			<string>Copy</string>
 			<key>xpos</key>
-			<real>935</real>
+			<real>1145</real>
 			<key>ypos</key>
-			<real>310</real>
+			<real>305</real>
 		</dict>
 		<key>50640BEC-C2D7-4401-8673-AA2942BD5BF4</key>
 		<dict>
 			<key>note</key>
 			<string>pass "$2" | sed ...</string>
 			<key>xpos</key>
-			<real>785</real>
+			<real>995</real>
 			<key>ypos</key>
-			<real>440</real>
+			<real>435</real>
+		</dict>
+		<key>5A95F68C-46B4-4DB4-9552-2AE787837BC3</key>
+		<dict>
+			<key>note</key>
+			<string>rm $FILE</string>
+			<key>xpos</key>
+			<real>645</real>
+			<key>ypos</key>
+			<real>465</real>
 		</dict>
 		<key>6ED806A4-C175-4BA3-8BD2-C11F1B6D5D24</key>
 		<dict>
 			<key>xpos</key>
-			<real>350</real>
+			<real>545</real>
 			<key>ypos</key>
-			<real>325</real>
+			<real>320</real>
 		</dict>
 		<key>6F251652-FD0D-4AD0-B2FF-EDB90DECD188</key>
 		<dict>
@@ -850,9 +936,9 @@ pass "$psp" | sed -n "${linenum}p" | sed -E 's/^ *([^:]+): +( ?[^ ]+) *$/\2/'</s
 		<key>7175D1C0-34B3-4C88-BA50-00C7761C509B</key>
 		<dict>
 			<key>xpos</key>
-			<real>630</real>
+			<real>840</real>
 			<key>ypos</key>
-			<real>470</real>
+			<real>465</real>
 		</dict>
 		<key>72AB3D29-2B1E-4B36-9090-7CB5623DB15C</key>
 		<dict>
@@ -885,25 +971,27 @@ browse_fields _</string>
 			<string>copy _
 autotype _</string>
 			<key>xpos</key>
-			<real>530</real>
+			<real>740</real>
 			<key>ypos</key>
-			<real>345</real>
+			<real>340</real>
 		</dict>
 		<key>AD519439-6DEC-447F-A927-F48F354C2DCB</key>
 		<dict>
+			<key>note</key>
+			<string>browse_fields $psp --&gt; $psp</string>
 			<key>xpos</key>
-			<real>280</real>
+			<real>300</real>
 			<key>ypos</key>
-			<real>355</real>
+			<real>350</real>
 		</dict>
 		<key>BBC41600-78DC-4F53-B938-8607416588B7</key>
 		<dict>
 			<key>note</key>
 			<string>pass "$2" | sed ...</string>
 			<key>xpos</key>
-			<real>785</real>
+			<real>995</real>
 			<key>ypos</key>
-			<real>310</real>
+			<real>305</real>
 		</dict>
 		<key>BD38DAA1-41A8-4B75-BA49-81A6E9D45298</key>
 		<dict>
@@ -915,9 +1003,9 @@ autotype _</string>
 		<key>C066752B-834A-475C-A61B-973423A4977B</key>
 		<dict>
 			<key>xpos</key>
-			<real>705</real>
+			<real>915</real>
 			<key>ypos</key>
-			<real>470</real>
+			<real>465</real>
 		</dict>
 		<key>C7B97C94-3D0B-471E-96EE-A441A1FAB184</key>
 		<dict>
@@ -931,24 +1019,42 @@ autotype _</string>
 		<key>CD9D353C-5D9C-4677-B161-8449FBEC3C8A</key>
 		<dict>
 			<key>xpos</key>
-			<real>630</real>
+			<real>840</real>
 			<key>ypos</key>
-			<real>340</real>
+			<real>335</real>
 		</dict>
 		<key>CF88445D-9EF5-4B71-A0F7-D1DA91BD9D3A</key>
 		<dict>
 			<key>note</key>
 			<string>Copy &amp; paste</string>
 			<key>xpos</key>
-			<real>935</real>
+			<real>1145</real>
 			<key>ypos</key>
-			<real>440</real>
+			<real>435</real>
+		</dict>
+		<key>FBA6C6C7-BC8C-43A4-ADFF-E081D773F600</key>
+		<dict>
+			<key>note</key>
+			<string>Create temporary text file containing output of `pass show`.
+
+(This is necessary because Alfred is too dumb to just take the stdout from an interactive script which steals focus, and pass it on. If an interactive script executes during a "Script Filter", i.e. a touch ID window which steals focus from Alfred, then Alfred forgets where it was and the whole workflow gets cancelled.)</string>
+			<key>xpos</key>
+			<real>395</real>
+			<key>ypos</key>
+			<real>320</real>
 		</dict>
 	</dict>
 	<key>userconfigurationconfig</key>
 	<array/>
+	<key>variables</key>
+	<dict>
+		<key>_ALFRED_PASS_SHOW_OUTPUT_TMP_FILE_LOC</key>
+		<string>/Users/murdock/testing2.txt</string>
+	</dict>
 	<key>variablesdontexport</key>
-	<array/>
+	<array>
+		<string>_ALFRED_PASS_SHOW_OUTPUT_TMP_FILE_LOC</string>
+	</array>
 	<key>version</key>
 	<string>0.0.1</string>
 	<key>webaddress</key>
